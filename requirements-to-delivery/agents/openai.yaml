@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirements to Delivery"
+  short_description: "Plan, build, and verify software requirements"
+  default_prompt: "Use $requirements-to-delivery to turn my requirements into a validated implementation."

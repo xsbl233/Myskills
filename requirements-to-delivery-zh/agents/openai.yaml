@@ -1,0 +1,4 @@
+interface:
+  display_name: "需求到交付（中文版）"
+  short_description: "将软件需求转化为经过完整测试和验收的可靠实现流程"
+  default_prompt: "使用 $requirements-to-delivery-zh 将我的需求转化为经过验证的实现。"

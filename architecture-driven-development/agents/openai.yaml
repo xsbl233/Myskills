@@ -1,0 +1,4 @@
+interface:
+  display_name: "架构驱动开发"
+  short_description: "从需求分解、架构视图到模块端口实现以及测试修复闭环"
+  default_prompt: "使用 $architecture-driven-development 将这个软件需求转化为有设计文档、模块端口和测试证据的实现。"
