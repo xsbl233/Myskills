@@ -5,13 +5,16 @@ description: >
   change or fixing a repo-level issue: decides whether tests are worth the interaction budget,
   keeps exploratory checks as throwaway probes instead of committed test files, and blocks
   self-confirming and cheating test patterns. Triggers: "should the agent write tests",
-  "要不要写测试", "别自动写单测", test budget or test cost questions, agent-authored test files.
+  test budget or test cost questions, agent-authored test files. Chinese sessions use
+  agent-test-strategy-zh instead.
   Do NOT use when the user explicitly asks for TDD or test-first work (use
   test-driven-development), when writing tests IS the requested deliverable, or when reviewing
   an existing suite (use brooks-test).
 ---
 
 # Agent Test Strategy
+
+Chinese edition: `agent-test-strategy-zh` (equivalent content, used for Chinese sessions).
 
 ## Core stance
 
