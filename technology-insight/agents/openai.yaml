@@ -1,0 +1,4 @@
+interface:
+  display_name: "业界新技术洞察"
+  short_description: "解读新技术原理，按项目展示实际工作流程、作用效果、实现伪代码与输入输出"
+  default_prompt: "使用 $technology-insight 调研我指定的新兴技术，解释定义与原理，并按真实项目展示实际工作流程图、技术的具体作用与效果、实现伪代码及输入输出示例，注明证据来源。"
