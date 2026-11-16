@@ -1,0 +1,38 @@
+{
+  "title": "DeepSeek Harness 核心分层（示意）",
+  "layers": [
+    { "name": "接入层", "nodes": [
+      { "id": "web", "label": "Web GUI", "anchor": "packages/web/...:—" },
+      { "id": "cli", "label": "dsh CLI", "anchor": "packages/cli/...:—" },
+      { "id": "sdk", "label": "SDK / JSON-RPC", "anchor": "packages/sdk/...:—" }
+    ]},
+    { "name": "调度层", "nodes": [
+      { "id": "loop", "label": "agent-loop", "anchor": "…/agent-loop:—" },
+      { "id": "queue", "label": "输入队列", "anchor": "…/input-queue:—" },
+      { "id": "ctx", "label": "上下文组装/压缩", "anchor": "…/context:—" }
+    ]},
+    { "name": "执行层", "nodes": [
+      { "id": "tool", "label": "工具注册/执行", "anchor": "…/tools:—" },
+      { "id": "sandbox", "label": "沙箱", "anchor": "…/sandbox:—" },
+      { "id": "shell", "label": "shell 执行", "anchor": "…/shell:—" }
+    ]},
+    { "name": "扩展层", "nodes": [
+      { "id": "cordis", "label": "Cordis 插件", "anchor": "…/cordis:—" },
+      { "id": "skill", "label": "Skill (SKILL.md)", "anchor": "…/skill:—" },
+      { "id": "mcp", "label": "MCP", "anchor": "…/mcp:—" },
+      { "id": "sub", "label": "子智能体", "anchor": "…/subagent:—" }
+    ]},
+    { "name": "持久化层", "nodes": [
+      { "id": "sess", "label": "会话事件日志", "anchor": "…/session:—" },
+      { "id": "store", "label": "非会话存储", "anchor": "…/store:—" }
+    ]}
+  ],
+  "flow": [
+    { "from": "cli", "to": "loop", "label": "turn" },
+    { "from": "loop", "to": "ctx", "label": "build" },
+    { "from": "loop", "to": "tool", "label": "invoke" },
+    { "from": "tool", "to": "sandbox" },
+    { "from": "loop", "to": "sub", "label": "spawn" },
+    { "from": "sess", "to": "ctx", "label": "recall" }
+  ]
+}

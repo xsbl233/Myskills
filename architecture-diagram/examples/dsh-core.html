@@ -1,0 +1,25 @@
+<!doctype html><meta charset="utf-8"><title>DeepSeek Harness 核心分层（示意）</title><style>
+:root{--bg:#fafafa;--fg:#1a1a1a;--muted:#666;--line:#d0d0d0;--accent:#2563eb;--accent2:#0f766e;--panel:#fff}
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif}
+h1{font-size:18px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:12px;margin-bottom:20px}
+.readonce{background:#fef9c3;border-left:4px solid #ca8a04;padding:10px 14px;margin:0 0 20px;border-radius:4px}
+.cols{display:grid;gap:24px}
+.cols.cmp{grid-template-columns:1fr 1fr}
+.col{min-width:0}
+.col h2{font-size:15px;margin:0 0 12px;padding:6px 10px;border-radius:4px;color:#fff;display:inline-block}
+.col.a h2{background:var(--accent)}.col.b h2{background:var(--accent2)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.layer{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.layer h3{font-size:13px;margin:0 0 8px;color:var(--muted);font-weight:600}
+.nodes{display:flex;flex-wrap:wrap;gap:8px}
+.node{background:#f3f4f6;border:1px solid var(--line);border-radius:4px;padding:5px 8px;font-size:12.5px}
+.node .a{display:block;color:var(--muted);font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:2px}
+.steps{margin-top:10px;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.steps h3{font-size:13px;margin:0 0 6px;color:var(--muted)}
+.steps ol{margin:0;padding-left:20px}
+.steps li{margin:2px 0;font-size:12.5px}
+.steps .a{color:var(--muted);font:11px ui-monospace,Menlo,monospace}
+.flow{color:var(--accent)}
+</style><h1>DeepSeek Harness 核心分层（示意）</h1><div class="sub">由 diagram.mjs 生成 · 锚点为 文件:行号（真实性由调用方先读代码保证）</div><div class="stack"><div class="layer"><h3>接入层</h3><div class="nodes"><div class="node"><span>Web GUI</span><span class="a">packages/web/...:—</span></div><div class="node"><span>dsh CLI</span><span class="a">packages/cli/...:—</span></div><div class="node"><span>SDK / JSON-RPC</span><span class="a">packages/sdk/...:—</span></div></div></div><div class="layer"><h3>调度层</h3><div class="nodes"><div class="node"><span>agent-loop</span><span class="a">…/agent-loop:—</span></div><div class="node"><span>输入队列</span><span class="a">…/input-queue:—</span></div><div class="node"><span>上下文组装/压缩</span><span class="a">…/context:—</span></div></div></div><div class="layer"><h3>执行层</h3><div class="nodes"><div class="node"><span>工具注册/执行</span><span class="a">…/tools:—</span></div><div class="node"><span>沙箱</span><span class="a">…/sandbox:—</span></div><div class="node"><span>shell 执行</span><span class="a">…/shell:—</span></div></div></div><div class="layer"><h3>扩展层</h3><div class="nodes"><div class="node"><span>Cordis 插件</span><span class="a">…/cordis:—</span></div><div class="node"><span>Skill (SKILL.md)</span><span class="a">…/skill:—</span></div><div class="node"><span>MCP</span><span class="a">…/mcp:—</span></div><div class="node"><span>子智能体</span><span class="a">…/subagent:—</span></div></div></div><div class="layer"><h3>持久化层</h3><div class="nodes"><div class="node"><span>会话事件日志</span><span class="a">…/session:—</span></div><div class="node"><span>非会话存储</span><span class="a">…/store:—</span></div></div></div></div><div class="steps"><h3>执行流程</h3><ol><li><span class="flow">dsh CLI</span> <em>turn</em> <span class="flow">agent-loop</span> <span class="a">packages/cli/...:— → …/agent-loop:—</span></li><li><span class="flow">agent-loop</span> <em>build</em> <span class="flow">上下文组装/压缩</span> <span class="a">…/agent-loop:— → …/context:—</span></li><li><span class="flow">agent-loop</span> <em>invoke</em> <span class="flow">工具注册/执行</span> <span class="a">…/agent-loop:— → …/tools:—</span></li><li><span class="flow">工具注册/执行</span> → <span class="flow">沙箱</span> <span class="a">…/tools:— → …/sandbox:—</span></li><li><span class="flow">agent-loop</span> <em>spawn</em> <span class="flow">子智能体</span> <span class="a">…/agent-loop:— → …/subagent:—</span></li><li><span class="flow">会话事件日志</span> <em>recall</em> <span class="flow">上下文组装/压缩</span> <span class="a">…/session:— → …/context:—</span></li></ol></div></body>

@@ -38,6 +38,9 @@
 | --- | --- | --- |
 | trae-enterprise-usage | 查询 TRAE 企业版席位的剩余额度与用量（含个人版/企业版账本判定、企业控制台只读接口） | 自建，2026-10-13 |
 | deployment-plan | 生成部署与测试计划：环境启动、数据集获取、就绪判定、测试命令、结果归档、耗时估算及回滚 | 自建，2026-10-14；参考来源见技能内 references/sources.md |
+| architecture-diagram | 架构图/流程图/分层对照图：结构化 JSON → Mermaid(.mmd) + 自包含 HTML(.html)，零依赖 Node 脚本 `scripts/diagram.mjs`，带 file:line 锚点 | 自建（QwenWork 能力移植），2026-11-16；见 examples/dsh-core.* |
+| codebase-walkthrough | 陌生仓库「源码带读」：`scripts/scan.mjs` 先出骨架清单（入口启发式/扩展名分布/大文件），再建一次请求生命周期主线与锚点 | 自建（QwenWork 能力移植），2026-11-16；见 examples/scan-sample.md |
+| visual-arch-compare | 两套架构对照：分层对照图 + 各自独立执行流程 + 一句话读法，用 diagram.mjs 对照模式（A/B） | 自建（QwenWork 能力移植），2026-11-16；见 examples/deer-flow-vs-dsh.* |
 
 自建 skill 与上游拉取的内容分开维护：上游目录保持原样，自建目录可随时按实际使用情况修订。
 

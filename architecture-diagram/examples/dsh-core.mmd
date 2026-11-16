@@ -1,0 +1,32 @@
+flowchart TD
+subgraph L0["接入层"]
+  web["Web GUI"]
+  cli["dsh CLI"]
+  sdk["SDK / JSON-RPC"]
+end
+subgraph L1["调度层"]
+  loop["agent-loop"]
+  queue["输入队列"]
+  ctx["上下文组装/压缩"]
+end
+subgraph L2["执行层"]
+  tool["工具注册/执行"]
+  sandbox["沙箱"]
+  shell["shell 执行"]
+end
+subgraph L3["扩展层"]
+  cordis["Cordis 插件"]
+  skill["Skill (SKILL.md)"]
+  mcp["MCP"]
+  sub["子智能体"]
+end
+subgraph L4["持久化层"]
+  sess["会话事件日志"]
+  store["非会话存储"]
+end
+cli -->|turn| loop
+loop -->|build| ctx
+loop -->|invoke| tool
+tool --> sandbox
+loop -->|spawn| sub
+sess -->|recall| ctx

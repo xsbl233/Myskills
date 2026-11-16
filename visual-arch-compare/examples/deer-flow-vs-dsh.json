@@ -1,0 +1,64 @@
+{
+  "title": "DeerFlow 2.0 vs DeepSeek Harness 对照（示意）",
+  "readOnce": "A 是图内多节点协作的 LangGraph 超级智能体流程；B 是跨服务/插件化、Router 驱动的常驻 agent-loop。",
+  "A": {
+    "title": "DeerFlow 2.0",
+    "layers": [
+      { "name": "接口层", "nodes": [
+        { "id": "fa", "label": "FastAPI gateway", "anchor": "server/app.py:—" },
+        { "id": "web", "label": "Web UI", "anchor": "web/:—" }
+      ]},
+      { "name": "编排层", "nodes": [
+        { "id": "co", "label": "coordinator", "anchor": "src/agents/:—" },
+        { "id": "pl", "label": "planner", "anchor": "src/agents/:—" },
+        { "id": "rs", "label": "researcher", "anchor": "src/agents/:—" },
+        { "id": "rp", "label": "reporter", "anchor": "src/agents/:—" }
+      ]},
+      { "name": "运行层", "nodes": [
+        { "id": "lg", "label": "LangGraph 图", "anchor": "src/graph/:—" },
+        { "id": "st", "label": "持久化状态/checkpoint", "anchor": "src/:—" },
+        { "id": "tg", "label": "tools (search/scrape)", "anchor": "src/tools/:—" }
+      ]}
+    ],
+    "flow": [
+      { "from": "fa", "to": "co", "label": "query" },
+      { "from": "co", "to": "pl" },
+      { "from": "pl", "to": "rs", "label": "步骤" },
+      { "from": "rs", "to": "tg", "label": "检索" },
+      { "from": "rs", "to": "rp" },
+      { "from": "rp", "to": "fa", "label": "报告" },
+      { "from": "lg", "to": "st", "label": "checkpoint" }
+    ]
+  },
+  "B": {
+    "title": "DeepSeek Harness",
+    "layers": [
+      { "name": "接口层", "nodes": [
+        { "id": "gui", "label": "Web GUI / CLI", "anchor": "packages/…:—" }
+      ]},
+      { "name": "调度层", "nodes": [
+        { "id": "loop", "label": "agent-loop", "anchor": "…/agent-loop:—" },
+        { "id": "ctx", "label": "上下文组装/压缩", "anchor": "…/context:—" },
+        { "id": "rtr", "label": "Router (super-agent)", "anchor": "…/router:—" }
+      ]},
+      { "name": "执行层", "nodes": [
+        { "id": "wk", "label": "Worker (隔离子会话)", "anchor": "…/subagent:—" },
+        { "id": "tool", "label": "工具执行", "anchor": "…/tools:—" },
+        { "id": "sbx", "label": "沙箱", "anchor": "…/sandbox:—" }
+      ]},
+      { "name": "扩展层", "nodes": [
+        { "id": "cor", "label": "Cordis 插件", "anchor": "…/cordis:—" },
+        { "id": "sk", "label": "SKILL.md", "anchor": "…/skill:—" }
+      ]}
+    ],
+    "flow": [
+      { "from": "gui", "to": "rtr", "label": "event" },
+      { "from": "rtr", "to": "wk", "label": "dispatch" },
+      { "from": "wk", "to": "tool" },
+      { "from": "tool", "to": "sbx" },
+      { "from": "wk", "to": "rtr", "label": "回流" },
+      { "from": "rtr", "to": "ctx" },
+      { "from": "cor", "to": "loop", "label": "register" }
+    ]
+  }
+}

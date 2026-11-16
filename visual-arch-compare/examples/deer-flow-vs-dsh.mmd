@@ -1,0 +1,51 @@
+%% A: DeerFlow 2.0
+flowchart TD
+subgraph L0["接口层"]
+  fa["FastAPI gateway"]
+  web["Web UI"]
+end
+subgraph L1["编排层"]
+  co["coordinator"]
+  pl["planner"]
+  rs["researcher"]
+  rp["reporter"]
+end
+subgraph L2["运行层"]
+  lg["LangGraph 图"]
+  st["持久化状态/checkpoint"]
+  tg["tools (search/scrape)"]
+end
+fa -->|query| co
+co --> pl
+pl -->|步骤| rs
+rs -->|检索| tg
+rs --> rp
+rp -->|报告| fa
+lg -->|checkpoint| st
+
+%% B: DeepSeek Harness
+flowchart TD
+subgraph L0["接口层"]
+  gui["Web GUI / CLI"]
+end
+subgraph L1["调度层"]
+  loop["agent-loop"]
+  ctx["上下文组装/压缩"]
+  rtr["Router (super-agent)"]
+end
+subgraph L2["执行层"]
+  wk["Worker (隔离子会话)"]
+  tool["工具执行"]
+  sbx["沙箱"]
+end
+subgraph L3["扩展层"]
+  cor["Cordis 插件"]
+  sk["SKILL.md"]
+end
+gui -->|event| rtr
+rtr -->|dispatch| wk
+wk --> tool
+tool --> sbx
+wk -->|回流| rtr
+rtr --> ctx
+cor -->|register| loop
