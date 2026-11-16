@@ -29,6 +29,7 @@
 - Superpowers 的这两个 skill 可能引用同仓库的其他 skills；本次按选择仅下载这两个，不包含完整 Superpowers 插件和启动流程。
 - skill 文件中的工具名称及部分命令针对其他 Agent 或 Unix 环境；在 Windows 上执行时应使用当前环境对应的工具与命令。
 - 各 skill 的许可证以其自带 LICENSE 文件和上游仓库许可为准。
+- architecture-diagram / visual-arch-compare / codebase-walkthrough 三个自建 skill 的脚本为 Node.js（零第三方依赖，仅用内置 `fs`、`path`），无需安装任何东西，只要本机有 Node ≥18；运行前提与用法见各自 `scripts/setup_env.sh`。本仓库 Windows/PowerShell 环境下用 `node scripts/<name>.mjs ...` 执行即可（脚本不含 shell 逻辑，不依赖 bash）。
 
 现有 architecture-driven-development、requirements-to-delivery 等目录继续用于架构与需求交付；本清单只记录本次新增内容。
 
